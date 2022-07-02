@@ -17,7 +17,7 @@ class MedicineBase(models.Model):
 
     # Metadata
     class Meta:
-        ordering = ['created_at']
+        ordering = ['-updated_at']
 
     # Methods
     # def get_absolute_url(self):
