@@ -1,16 +1,15 @@
 from django.db import models
 from django.urls import reverse
-
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
-class RegisterUser(models.Model):
-    name= models.CharField(max_length=255, unique=True)
+class RegisterUser(AbstractUser):
+    username= models.CharField(max_length=255, unique=True)
     email= models.EmailField(max_length=255, unique=True)
     password= models.CharField(max_length=255)
-    confirm_password= models.CharField(max_length=255)
     
-    USERNAME_FIELD='email'
-    REQUIRED_FIELDS =['name','password','confirm_password ' ] #
+    USERNAME_FIELD='username'
+    REQUIRED_FIELDS =['password' ] #
 
 
 class MedicineBase(models.Model):
