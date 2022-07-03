@@ -9,7 +9,7 @@ from .models import MedicineBase,User
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate,logout
 from .renderers import UserRenderer
 # Create your views here.
 
@@ -132,6 +132,7 @@ class LogoutView(APIView):
     renderer_classes = [UserRenderer] 
     def post(self, request):
         try:
+            logout(request)
             refresh_token = request.data.get('refresh_token') #takes the refresh token from request
             token_obj = RefreshToken(refresh_token)
             token_obj.blacklist()
