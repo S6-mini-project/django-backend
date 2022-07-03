@@ -3,6 +3,15 @@ from django.urls import reverse
 
 
 # Create your models here.
+class RegisterUser(models.Model):
+    name= models.CharField(max_length=255, unique=True)
+    email= models.EmailField(max_length=255, unique=True)
+    password= models.CharField(max_length=255)
+    confirm_password= models.CharField(max_length=255)
+    
+    USERNAME_FIELD='email'
+    REQUIRED_FIELDS =['name','password','confirm_password ' ] #
+
 
 class MedicineBase(models.Model):
     """A typical class defining a model, derived from the Model class."""
