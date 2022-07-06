@@ -26,7 +26,7 @@ def get_tokens_for_user(user):
 
 class MedicineAPI(APIView):
     renderer_classes = [UserRenderer]
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     def get_object(self, pk):
         try:
             return MedicineBase.objects.get(pk=pk)
@@ -37,12 +37,13 @@ class MedicineAPI(APIView):
         medicine = MedicineBase.objects.all()
         serializer = MedicineSerializer(medicine, many=True)
         if request.method == 'GET':
-            return Response(
-                {
-                    "status": "weight request successful",
-                    "message": serializer.data,
-                }
-            )
+            # return Response(
+            #     {
+            #         "status": "weight request successful",
+            #         "message": serializer.data,
+            #     }
+            # ) 
+            return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return JsonResponse(serializer.errors, status=400)
 
@@ -52,11 +53,12 @@ class MedicineAPI(APIView):
                 serializer = MedicineSerializer(data=request.data)
                 if serializer.is_valid():
                     serializer.save()
-                    return Response(
-                        {
-                            "status": "weight added to the database",
-                            "message": serializer.data,
-                        })
+                    # return Response(
+                    #     {
+                    #         "status": "weight added to the database",
+                    #         "message": serializer.data,
+                    #     })
+                    return Response(serializer.data, status=status.HTTP_200_OK)
             except Exception as e:
                 print(e)
         else:
@@ -117,7 +119,7 @@ class UserLoginView(APIView):
     user = authenticate(email=email, password=password)
     if user is not None:
       token = get_tokens_for_user(user)
-      return Response({'token':token, 'msg':'Login Success'}, status=status.HTTP_200_OK)
+      return Response(token, status=status.HTTP_200_OK)
     else:
       return Response({'errors':{'non_field_errors':['Email or Password is not Valid']}}, status=status.HTTP_404_NOT_FOUND)
 
@@ -133,7 +135,10 @@ class LogoutView(APIView):
     def post(self, request):
         try:
             logout(request)
-            refresh_token = request.data.get('refresh_token') #takes the refresh token from request
+            refresh_token = request.data['refresh_token']
+            # print(request.data['refresh_token'])
+            # # #takes the refresh token from request
+            
             token_obj = RefreshToken(refresh_token)
             token_obj.blacklist()
             return Response({
