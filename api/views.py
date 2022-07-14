@@ -1,9 +1,8 @@
-
-from rest_framework import status
+from rest_framework import status,serializers
 from rest_framework.decorators import api_view,APIView
 from rest_framework.response import Response
 from requests import request
-from .serializers import  MedicineSerializer,UserLoginSerializer,UserProfileSerializer,UserRegistrationSerializer
+from .serializers import  MedicineSerializer,UserLoginSerializer,UserProfileSerializer,UserRegistrationSerializer,MedStocksSerializer
 from django.http import HttpResponse, JsonResponse,Http404
 from .models import MedicineBase,User
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -99,6 +98,26 @@ class MedicineAPI(APIView):
 #             else:
 #                 return Response({'errors': 'Login failed! username or  password incorrect!',status:status.HTTP_404_NOT_FOUND })
 #         return Response( serializer.errors, status= status.HTTP_400_BAD_REQUEST)
+
+
+class MedStocks(APIView):
+    renderer_classes = [UserRenderer]
+    def post(self, request):
+         if request.method == 'POST':
+            try:
+                print(request.data)
+                serializer = MedStocksSerializer(data=request.data)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data, status=status.HTTP_200_OK)
+            except Exception as e:
+                print(e)
+            else:
+                return JsonResponse(serializer.errors, status=400)
+        
+        
+        
+
 
 class UserRegistrationView(APIView):
   renderer_classes = [UserRenderer]

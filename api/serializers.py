@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import MedicineBase,User
+from .models import MedicineBase,User,MedStocks
 from rest_framework.response import Response
 # class UserSerializer(serializers.ModelSerializer):
 #     class Meta:
@@ -68,4 +68,9 @@ class MedicineSerializer(serializers.ModelSerializer):
     class Meta:
         model = MedicineBase
         # fields = ['m_id','medicine_weight','created_at','updated_at']
-        exclude = ('m_id','created_at','updated_at')
+        exclude = ['m_id','created_at','updated_at']
+        
+class MedStocksSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = MedStocks
+    exclude = ['med_id']        

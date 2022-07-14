@@ -1,3 +1,4 @@
+from typing import OrderedDict
 from django.db import models
 from django.urls import reverse
 
@@ -93,9 +94,11 @@ class MedicineBase(models.Model):
     # medicine_weight = models.CharField(max_length=20, help_text='Enter field documentation')
     m_id = models.AutoField(primary_key=True)
     medicine_weight = models.CharField(max_length=20)
+    medicine_name = models.CharField(max_length=255,default=None)
+    minimum_stock = models.CharField(max_length=255,default=None)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now= True)
-    ...
+    
 
     # Metadata
     class Meta:
@@ -115,3 +118,11 @@ class MedicineBase(models.Model):
 #sample data
 # record = MedicineBase(m_id=1,medicine_weight="30")
 # record.save()    
+
+class MedStocks(models.Model):
+    med_id = models.AutoField(primary_key=True)
+    med_name = models.CharField(max_length=255)
+    min_stock = models.CharField(max_length=255)
+    
+    class Meta:
+        ordering = ['med_id']
