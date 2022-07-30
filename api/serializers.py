@@ -73,4 +73,4 @@ class MedicineSerializer(serializers.ModelSerializer):
 class MedStocksSerializer(serializers.ModelSerializer):
   class Meta:
     model = MedStocks
-    exclude = ['med_id']        
+    exclude = ['m_id']        

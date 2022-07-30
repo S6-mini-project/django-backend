@@ -120,9 +120,9 @@ class MedicineBase(models.Model):
 # record.save()    
 
 class MedStocks(models.Model):
-    med_id = models.AutoField(primary_key=True)
-    med_name = models.CharField(max_length=255)
-    min_stock = models.CharField(max_length=255)
+    m_id = models.AutoField(primary_key=True)
+    medicine_name = models.CharField(max_length=255)
+    minimum_stock = models.CharField(max_length=255)
     
     class Meta:
-        ordering = ['med_id']
+        ordering = ['m_id']
