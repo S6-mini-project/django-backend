@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-(#wa&8x88)=de!!kl6q+$9v#)=!$pfnf#=%^e8^u&h7kcgzqip
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.18.178','192.168.1.7','10.100.28.174','192.168.38.252','192.168.58.252']
+ALLOWED_HOSTS = ['192.168.18.178','192.168.1.7','192.168.38.252','192.168.222.252']
 
 
 # Application definition
@@ -80,9 +80,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'medpharma',
-        'USER':'root',
-        'PASSWORD':'',
-        'HOST':'localhost',
+        'USER':'amar',
+        'PASSWORD':'q4GwUDOBt3IFRRcu',
+        'HOST':'159.65.156.24',
         'PORT': '3306',
     }
 }
